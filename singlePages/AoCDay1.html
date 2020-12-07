@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Single - Future Imperfect by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+	</head>
+	<body class="single is-preload">
+		<header id="header">
+			<h1><a href="../index.html">Neil Doppelmayr</a></h1>
+			<nav class="links">
+				<ul>
+					<li><a href="#">Lorem</a></li>
+					<li><a href="#">Ipsum</a></li>
+					<li><a href="#">Feugiat</a></li>
+					<li><a href="#">Tempus</a></li>
+					<li><a href="#">Adipiscing</a></li>
+				</ul>
+			</nav>
+			<nav class="main">
+				<ul>
+					<li class="search">
+						<a class="fa-search" href="#search">Search</a>
+						<form id="search" method="get" action="#">
+							<input type="text" name="query" placeholder="Search" />
+						</form>
+					</li>
+					<li class="menu">
+						<a class="fa-bars" href="#menu">Menu</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		
+		<!-- Menu -->
+		<section id="menu">
+		
+			<!-- Search -->
+				<section>
+					<form class="search" method="get" action="#">
+						<input type="text" name="query" placeholder="Search" />
+					</form>
+				</section>
+		
+			<!-- Links -->
+				<section>
+					<ul class="links">
+						<li>
+							<a href="#">
+								<h3>Lorem ipsum</h3>
+								<p>Feugiat tempus veroeros dolor</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>Dolor sit amet</h3>
+								<p>Sed vitae justo condimentum</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>Feugiat veroeros</h3>
+								<p>Phasellus sed ultricies mi congue</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>Etiam sed consequat</h3>
+								<p>Porta lectus amet ultricies</p>
+							</a>
+						</li>
+					</ul>
+				</section>
+		
+			<!-- Actions -->
+				<section>
+					<ul class="actions stacked">
+						<li><a href="#" class="button large fit">Log In</a></li>
+					</ul>
+				</section>
+		
+		</section>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+				<header></header>
+					
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<article class="post">
+								<header>
+									<div class="title">
+										<h2><a href="#">Advent of Code Day 1 challenge</a></h2>
+										<p>What is this runtime you speak of?</p>
+									</div>
+									<div class="meta">
+										<time class="published" datetime="2020-12-01">December 1, 2020</time>
+									</div>
+								</header>
+								<span class="image featured"><img src="../images/AoC/AoCLogoShallow.png" alt="" /></span>
+								<p>So, first of let me explain what Advent of Code is. Every year <a href="http://was.tl/" target="_blank">Eric Wastl</a> hosts an event by the name of Advent of Code, in which like with traditional advent calendars every day hides a new programming challenge. 
+									These start of quite simple and drastically scale up in difficulty leading up to December 24th.</p>
+
+								
+								<p>Here I am talking about my solution for the first of these challenges. You can find the task specification <a href="https://adventofcode.com/2020/day/1" target="_blank">here.</a> 
+									I suggest looking at it before continuing reading, as the rest of the article would not make too much sense otherwise.</p>
+								
+								<p>TL;DR: Compare all numbers in an array and find which two numbers add up to 2020.</p>
+
+								<h1>The Naive Solution</h1>
+
+								<p>Ah yes, what would be a programming task without the good old na&iuml;ve solution? <br>
+									This is the step where the programmer just types down whatever solution comes to mind first, often with sub optimal results:</p>
+
+								<span class="image featured"><img src="../images/AoC/SolvePart1InnitialWide.png" alt="" /></span>
+
+
+								<p>Now this solution does work. It works quite well actually. It certainly gave me the correct answer to the puzzle. However, to each of these challenges there is a part 2. And the folly of this solution becomes even more obvious in that second part:</p>
+								<p>&ldquo;Compare all numbers and find a combination of three numbers which adds up to 2020&rdquo;</p>
+								<p>We can quite easily solve this by expanding our code:</p>
+
+								<span class="image featured"><img src="../images/AoC/SolvePart2Innitial.png" alt="" /></span>
+
+								<p>The experienced programmer will probably see the problem here. Nesting loops, in this case foreach, is usually a bad sign. As the size of the input increases, so does the runtime. To see just how much the O notation is often used. This notation shows how long the runtime is in relation to the input.</p>
+								<p>
+									<strong><em>O(1)</em></strong> would mean the runtime is independent input <strong><em>n.</em></strong><br/>
+									<strong><em>O(n)</em></strong> would mean the runtime has a linear relation to the input <strong><em>n.</em></strong><br/>
+									<strong><em>O(n&sup2;)</em></strong> has a quadratic runtime to the input <strong><em>n.<br />O(n&sup3;)</em></strong> has a cubic runtime to the input <strong><em>n.<br /></em></strong>And so on. In our case each for loop increases the exponent by 1. Our last example would therefore have a runtime of <strong><em>O(n&sup3;)</em></strong>.</p>
+								<p>That might not sound to bad initially, but let&rsquo;s look at the numbers for a second.</p>
+								<p>Let us assume that doing our operation on one input takes 1 second, an exceedingly high estimate but it gives a good view of the scales we are dealing with. Let us further assume we have 1000 input values. Then the time it takes to execute our program for the different runtimes is as follows.</p>
+								<p>
+									<strong><em>O(1)</em></strong> -> 1 second<br />
+									<strong><em>O(n)</em></strong> -> 1000 seconds -> ~16 minutes<br />
+									<strong><em>O(n&sup2;)</em></strong> -> 1.000.000 seconds -> ~11,5 days<br>
+									<strong><em>O(n&sup3;)</em></strong> -> 1.000.000.000 seconds -> ~ 31 years</p>
+
+									<span class="image featured"><img src="../images/AoC/GraphPlot.png" alt="" /></span>
+
+								<h1> Reducing runtime complexity</h1>
+
+								<p>Our previous solution did work for the example given by AoC, however in many settings such as big data or video games such a runtime would not be good enough. Reducing the runtime complexity has priority.</p>
+								<p>Thankfully, there is a quite easy solution to reduce the runtime. C#, along with many other languages, offers a type of collection where checking if a value exists has a runtime of <strong><em>O(1)</strong></em>.</p>
+								<p>Our savior the Hashset. Now we can calculate the remaining value needed to reach 2020 for each input, and simply check if it is included in the list of inputs.</p>
+
+								<span class="image featured"><img src="../images/AoC/SolvePart1Final.png" alt="" /></span>
+
+								<p>We can extend this new method to work with part 2 as well.</p>
+
+								<span class="image featured"><img src="../images/AoC/SolvePart2Improved.png" alt="" /></span>
+
+								<p>This is still <strong><em>O(n&sup2;)</strong></em> but that cannot be helped. We already decreased the exponent by 1 which is worth gold.</p>
+
+								<h1> Smaller optimisations</h1>
+
+								<p>Finally, we can make some additional runtime improvements. By ordering the array and using a for loop instead of a for loop we can skip many duplicate comparisons.</p>
+								<p>The ordered array also allows us to skip any combinations that would result in a number that is higher than our target.</p>
+								<p>Through these adjustments we managed to decrease our runtime by around a factor of 10 for a 5mb input file provided by</p>
+
+								<p>With that our final code looks like this:</p>
+								<span class="image featured"><img src="../images/AoC/SolvePart2Final.png" alt="" /></span>
+
+								<p>I will say that there was a palpable tradeoff of readability for performance, but sometimes those are the sacrifices we have to make for our craft.
+								<br>You can check my code out at my <a href="https://github.com/NeilDop/AoC2020"> AoC Repository on Git.</a></p>
+<p>And while this was quite fun, do not expect me to write up a deep dive like this for every day. <br> I am quite fond of my sanity, thank you!</p>
+
+									<!-- <footer>
+									<ul class="stats">
+										<li><a href="#">General</a></li>
+										<li><a href="#" class="icon solid fa-heart">28</a></li>
+										<li><a href="#" class="icon solid fa-comment">128</a></li>
+									</ul>
+								</footer> -->
+							</article>
+
+					</div>
+
+				<!-- Footer -->
+					<section id="footer">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/neil-doppelmayr/" target="_blank" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						</ul>
+						<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a>.</p>
+					</section>
+
+			</div>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
